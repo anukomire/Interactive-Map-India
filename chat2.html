@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Temple Map</title>
+    <script>
+        function heritageMarkerDetails(){
+            none();
+        }
+        let map;
+        let modalContent = document.getElementById('modalContent');
+
+        let markers = [
+            {
+              class:'temples', id: 'temple1', title: 'Jogulamba', position: { lat: 15.87702, lng: 78.13463 }, descriptions:{en: ' Goddess Jogulamba, a form of Shakti located in jogulamba Gadwal District, Alampur, Telangana, India. The temple is one of the Maha Shakti Peethas, a group of eighteen (Ashtadasa) temples considered the most significant shrines and pilgrimage destinations in Shaktism Alampur is located on the banks of the Tungabhadra river near its confluence with Krishna river.', te:' జోగులాంబ దేవి, శక్తి స్వరూపం, జోగులాంబ గద్వాల జిల్లా, అలంపూర్, భారతదేశంలో ఉంది. ఈ ఆలయం మహా శక్తి పీఠాలలో ఒకటి, ఇది పద్దెనిమిది (అష్టాదశ) దేవాలయాల సమూహం, శక్తిలో అత్యంత ముఖ్యమైన పుణ్యక్షేత్రాలు మరియు పుణ్యక్షేత్రాలుగా పరిగణించబడుతుంది అలంపూర్ కృష్ణా నదితో సంగమానికి సమీపంలో తుంగభద్ర నది ఒడ్డున ఉంది.' , ta :'                  சக்தியின் ஒரு வடிவமான ஜோகுலாம்பா தேவி, இந்தியாவின் தெலங்கானாவின் ஆலம்பூர், ஜோகுலாம்பா கட்வால் மாவட்டத்தில் அமைந்துள்ளது. இந்த கோயில் மகா சக்தி பீடங்களில் ஒன்றாகும், இது சக்தியின் மிக முக்கியமான கோயில்கள் மற்றும் யாத்திரைத் தலங்களாகக் கருதப்படும் பதினெட்டு (அஷ்டதாச) கோயில்களின் குழுவாகும், ஆலம்பூர் கிருஷ்ணா நதியுடன் சங்கமிக்கும் துங்கபத்ரா ஆற்றின் கரையில் அமைந்துள்ளது.'}, images: ['https://www.templepurohit.com/wp-content/uploads/2015/11/Alampur-Jogulamba-Temple.jpg', 'https://via.placeholder.com/200'],
+                icon:'https://th.bing.com/th/id/OIP.EHkCw8zMpNzGlTtFbbAU0QHaIA?pid=ImgDet&rs=1',
+                videos: ['video_20221204_204555_edit.mp4','https://youtu.be/BcUUwn309cY?si=yIoDCEZv7uNONJlh']
+            }, { id: 'temple2', title: 'Alampur Papanasi Temples', position: { lat: 15.87162, lng: 78.12242 }, descriptions:{en: 'Alampur Papanasi Temples are a group of twenty three Hindu temples dated between 9th- and 11th-century that have been relocated to the southwest of jougulamba gadwal distric, Alampur village , Telangana. This cluster of mostly ruined temples are co-located near the meeting point of Tungabhadra River and Krishna River at the border of Andhra Pradesh.', te:'                  అలంపూర్ పాపనాశి దేవాలయాలు తెలంగాణలోని జోగుళాంబ గద్వాల జిల్లా, అలంపూర్ గ్రామానికి నైరుతి దిశలో 9 వ మరియు 11 వ శతాబ్దాల మధ్య కాలానికి చెందిన ఇరవై మూడు హిందూ దేవాలయాల సమూహం. ఆంధ్రప్రదేశ్ సరిహద్దులో తుంగభద్ర నది, కృష్ణా నది కలిసే ప్రదేశానికి సమీపంలో ఎక్కువగా శిథిలావస్థలో ఉన్న ఈ దేవాలయాల సమూహం ఉంది.', ta:'ஆலம்பூர் பாபநாசி கோயில்கள் என்பது 9 முதல் 11 ஆம் நூற்றாண்டைச் சேர்ந்த இருபத்தி மூன்று இந்து கோயில்களின் குழுவாகும், அவை தெலங்கானாவின் ஆலம்பூர் கிராமத்தின் ஜுகுலாம்பா கட்வால் மாவட்டத்தின் தென்மேற்கில் இடமாற்றம் செய்யப்பட்டுள்ளன. பெரும்பாலும் பாழடைந்த இந்த கோயில்களின் தொகுப்பு ஆந்திராவின் எல்லையில் துங்கபத்ரா நதி மற்றும் கிருஷ்ணா நதி சந்திக்கும் இடத்திற்கு அருகில் அமைந்துள்ளது.'}, images: ['https://www.trawell.in/admin/images/upload/494808882Alampur_Papanasi_Temples_Main.jpg'],icon:'https://www.trawell.in/admin/images/upload/494808882Alampur_Papanasi_Temples_Main.jpg', 
+              videos: ['PAPANASI Temple in Alampur_ beautiful temple with carvings and a big garden.mp4'] },{id: 'temple3' , title: 'Sita Ramachandra Swamy', position: {lat:17.6701, lng:80.8987}, descriptions:{en: 'Bhadrachalam is a census town in Bhadradri Kothagudem district in the Indian state of Telangana. It is an important Hindu pilgrimage town with the Bhadrachalam Temple of Lord Rama, situated on the banks of Godavari river. It is located 312 kilometres (194 mi) east of state capital, Hyderabad,115 kilometres (71 mi) from Khammam,178 kilometres (111 mi) from Suryapet,180 kilometres (112 mi) from Warangal,187 kilometres (116 mi) from Vijayawada,220 kilometres (137 mi) and 350 kilometres (217 mi) from Visakhapatnam.', te: 'భద్రాచలం, తెలంగాణ రాష్ట్రములోని భద్రాద్రి కొత్తగూడెం జిల్లాకు చెందిన ఒక మండలము. గోదావరి నది ఒడ్డున ఉన్న భద్రాచలం శ్రీరాముని ఆలయంతో ఇది ఒక ముఖ్యమైన హిందూ పుణ్యక్షేత్రం. ఇది రాష్ట్ర రాజధాని హైదరాబాదుకు తూర్పున 312 కిలోమీటర్లు (194 మైళ్ళు), ఖమ్మం నుండి 115 కిలోమీటర్లు (71 మైళ్ళు), సూర్యాపేట నుండి 178 కిలోమీటర్లు (111 మైళ్ళు), వరంగల్ నుండి 180 కిలోమీటర్లు (112 మైళ్ళు), విజయవాడ నుండి 187 కిలోమీటర్లు (116 మైళ్ళు), 220 కిలోమీటర్లు (137 మైళ్ళు) మరియు 350 కిలోల దూరంలో ఉంది. ',ta: 'பத்ராச்சலம் என்பது இந்திய மாநிலமான தெலங்கானாவின் பத்ராத்ரி கொத்தகூடம் மாவட்டத்தில் உள்ள ஒரு மக்கள் தொகை கணக்கெடுப்பு நகரம் ஆகும். கோதாவரி ஆற்றங்கரையில் அமைந்துள்ள ராமரின் பத்ராச்சலம் கோயிலைக் கொண்ட இது ஒரு முக்கியமான இந்து யாத்ரீக நகரமாகும். இது மாநிலத் தலைநகரான ஹைதராபாத்திலிருந்து கிழக்கே 312 கிலோமீட்டர் (194 மைல்), கம்மத்திலிருந்து 115 கிலோமீட்டர் (71 மைல்), சூர்யபேட்டையிலிருந்து 178 கிலோமீட்டர் (111 மைல்), வாரங்கலில் இருந்து 180 கிலோமீட்டர் (112 மைல்), விஜயவாடாவிலிருந்து 187 கிலோமீட்டர் (116 மைல்), விஜயவாடாவிலிருந்து 220 கிலோமீட்டர் (137 மைல்) மற்றும் 350 கிலோகிராம் தொலைவில் அமைந்துள்ளது.'}, images: ['badra1.jpg','bdadra3.jpg'], icon: 'badra2.jpg',
+ videos: ['Bhadrachalam Temple.mp4']},{id:'temple4', title: 'Balkampet Yellamma',  position: {lat: 17.30490 , lng: 78.52393}, descriptions: {en: 'The Balkampet Yellamma Temple, located in the city of Hyderabad, Telangana, is a popular pilgrimage site for devotees of the Hindu goddess Yellamma. It is dedicated to worshipping Yellamma, who is also known as Renuka and is considered to be an incarnation of goddess Parvati. The temple is believed to have been built in the 16th century and is an architectural marvel that showcases the rich cultural heritage of Telangana.This temple is adorned with intricate carvings and sculptures that depict various scenes from Hindu mythology. It is also known for its annual Yellamma Jatara, a popular festival that is celebrated with great devotion. During this festival, thousands of devotees from all over the state of Telangana and neighbouring states flock to the temple to offer their prayers and seek the blessings of the goddess.' , te: '      తెలంగాణలోని హైదరాబాద్ నగరంలో ఉన్న బల్కంపేట ఎల్లమ్మ ఆలయం హిందూ దేవత ఎల్లమ్మ భక్తులకు ప్రసిద్ధ పుణ్యక్షేత్రం. రేణుక అని కూడా పిలువబడే, పార్వతీ దేవి అవతారంగా భావించే ఎల్లమ్మను పూజించడానికి ఇది అంకితం చేయబడింది. ఈ ఆలయం 16 వ శతాబ్దంలో నిర్మించబడిందని నమ్ముతారు మరియు ఇది తెలంగాణ యొక్క గొప్ప సాంస్కృతిక వారసత్వాన్ని ప్రదర్శించే ఒక నిర్మాణ అద్భుతం.ఈ ఆలయం సంక్లిష్టమైన శిల్పాలు మరియు శిల్పాలతో అలంకరించబడింది.', ta: ' தெலங்கானாவின் ஹைதராபாத் நகரில் அமைந்துள்ள பால்கம்பேட் எல்லம்மா கோயில், இந்து தெய்வமான எல்லம்மாவின் பக்தர்களின் பிரபலமான யாத்திரை தளமாகும். இது ரேணுகா என்றும் அழைக்கப்படும் எல்லம்மாவை வணங்குவதற்காக அர்ப்பணிக்கப்பட்டுள்ளது, மேலும் இது பார்வதி தேவியின் அவதாரமாக கருதப்படுகிறது. இந்த கோயில் 16 ஆம் நூற்றாண்டில் கட்டப்பட்டதாக நம்பப்படுகிறது, இது தெலுங்கானாவின் வளமான கலாச்சார பாரம்பரியத்தை வெளிப்படுத்தும் ஒரு கட்டிடக்கலை அதிசயமாகும்.'}, images: ['balkampet2.jpg'], icon: 'balkampet1.jpg', videos: ['Live _ Balkampet Yellamma Kalyanotsavam _ Hyderabad _ Tolivelugu TV.mp4']}, {id:'temple5', title: 'Peddamma', position:{lat: 17.43090, lng: 78.40492}, descriptions: {en:'The Peddamma Temple, located in Hyderabad, Telangana, is considered one of the best sacred temples in the state. It is dedicated to the goddess Peddamma, an incarnation of the Hindu goddess Durga. The temple is known for its intricate architecture and beautiful carvings, which make it a popular tourist destination. Visitors can also witness the traditional rituals and ceremonies performed at the temple, adding to the spiritual experience. The temple is surrounded by lush green gardens, making it a peaceful and serene place to visit. Overall, the Peddamma Temple is a must-visit for those interested in exploring the religious and cultural heritage of Telangana.', te:'à°¤à±†à°²à°‚à°—à°¾à°£à°²à±‹à°¨à°¿ à°¹à±ˆà°¦à°°à°¾à°¬à°       తెలంగాణలోని హైదరాబాద్ లో ఉన్న పెద్దమ్మ ఆలయం రాష్ట్రంలోని ఉత్తమ పవిత్ర దేవాలయాలలో ఒకటిగా పరిగణించబడుతుంది. ఇది హిందూ దేవత దుర్గాదేవి యొక్క అవతారమైన పెద్దమ్మ దేవతకు అంకితం చేయబడింది. ఈ ఆలయం సంక్లిష్టమైన వాస్తుశిల్పం మరియు అందమైన శిల్పాలకు ప్రసిద్ధి చెందింది, ఇది ఒక ప్రసిద్ధ పర్యాటక ప్రదేశంగా చేస్తుంది. సందర్శకులు ఆలయంలో నిర్వహించే సాంప్రదాయ ఆచారాలు మరియు వేడుకలను కూడా వీక్షించవచ్చు, ఆధ్యాత్మిక అనుభవాన్ని జోడిస్తుంది. ఆలయం చుట్టూ పచ్చని తోటలు ఉన్నాయి, అమ్మ', ta:'தெலங்கானாவின் ஐதராபாத்தில் அமைந்துள்ள பெத்தம்மா கோயில் மாநிலத்தின் சிறந்த புனித கோயில்களில் ஒன்றாக கருதப்படுகிறது. இது இந்து தெய்வமான துர்காவின் அவதாரமான பெத்தம்மா தேவிக்கு அர்ப்பணிக்கப்பட்டுள்ளது. இந்த கோயில் அதன் நுணுக்கமான கட்டிடக்கலை மற்றும் அழகான சிற்பங்களுக்காக அறியப்படுகிறது, இது ஒரு பிரபலமான சுற்றுலாத் தலமாக அமைகிறது. கோவிலில் நிகழ்த்தப்படும் பாரம்பரிய சடங்குகள் மற்றும் சடங்குகளையும் பார்வையாளர்கள் காணலாம், இது ஆன்மீக அனுபவத்தை அதிகரிக்கிறது. கோயிலைச் சுற்றி பசுமையான தோட்டங்கள் உள்ளன, அம்மா'}, images:['pedhamma2.jpg'],icon: 'pedhamma1.webp', videos: ''} 
+            
+        ];
+let festivalmarkers = [
+{
+id: 'festival1',
+title: 'Muharram (Peerla Panduga)',
+position: { lat: 17.43501, lng: 78.49907 }, 
+        descriptions:{ en: 'Muharram, also called Peerla Panduga is an important festival in the state of Telangana. Muharram, also called Peerla Panduga is an important festival in the state of Telangana. Muharram is a festival marked by processions. During this occasion, a relic called Alam is taken out as a procession. Ashurkhana, representing a group of Sufi Shrines, is the area where the procession takes place, Many Muslims and even Hindus take part in this festival by chanting Ya Hussain as they participate eagerly in this procession.', te: 'పీర్ల పండగ అని కూడా పిలువబడే మొహర్రం తెలంగాణ రాష్ట్రంలో ఒక ముఖ్యమైన పండుగ. పీర్ల పండగ అని కూడా పిలువబడే మొహర్రం తెలంగాణ రాష్ట్రంలో ఒక ముఖ్యమైన పండుగ. మొహర్రం అంటే ఊరేగింపులతో కూడిన పండుగ. ఈ సందర్భంగా ఆలం అనే అవశేషాన్ని ఊరేగింపుగా తీసుకెళ్తారు. సూఫీ పుణ్యక్షేత్రాల సమూహానికి ప్రాతినిధ్యం వహిస్తున్న అషుర్ఖానా, ఊరేగింపు జరిగే ప్రాంతం, అనేక మంది ముస్లింలు మరియు హిందువులు కూడా యా హుస్సేన్ జపించడం ద్వారా ఈ పండుగలో పాల్గొంటారు.', ta: 'பீர்லா பந்துகா என்றும் அழைக்கப்படும்  தெலுங்கானா மாநிலத்தில் ஒரு முக்கியமான பண்டிகையாகும். பீர்லா பந்துகா என்றும் அழைக்கப்படும் முஹர்ரம் தெலுங்கானா மாநிலத்தில் ஒரு முக்கியமான பண்டிகையாகும். முஹர்ரம் என்பது ஊர்வலங்களால் குறிக்கப்படும் ஒரு பண்டிகையாகும். இந்த நிகழ்வின் போது, ஆலம் என்ற நினைவுச்சின்னம் ஊர்வலமாக எடுத்துச் செல்லப்படுகிறது. சூஃபி ஆலயங்களின் குழுவை பிரதிநிதித்துவப்படுத்தும் அஷுர்கானா, ஊர்வலம் நடைபெறும் பகுதியாகும், முஸ்லிம்கள் மற்றும் இந்துக்கள் கூட இந்த திருவிழாவில் யா ஹுசைனா என்று கோஷமிட்டு பங்கேற்கின்றனர்.'},
+        images: [
+            'moharram1.jpg',
+            'https://example.com/diwali_image2.jpg'
+        ],icon:'moharram2.jpg',
+        videos: [
+            'https://www.youtube.com/watch?v=video_id_1',
+            'https://www.youtube.com/watch?v=video_id_2'
+        ]
+    },
+    {
+        id: 'festival2',
+        title: 'Bathukamma',
+        position: { lat: 17.43501, lng: 78.49907 }, // Mathura, India
+        descriptions:{ en:'In Telugu, ‘Bathukamma means Mother Goddess come Alive. Bathukamma is a beautiful flower stack, arranged with different unique seasonal flowers most of them with medicinal values, in seven concentric layers in the shape of a temple gopuram. It is usually brothers who bring flowers to their mother and sisters to arrange bathukamma.Historically, Bathukamma meant the festival of life. It also marks the celebration of femininity in the Deccan region, during which women of Telangana dress up in traditional saris, with jewels and other accessories. Teenage Girls wear Langa-Oni/Half-Sarees/Lehenga Choli with jewels in order to bring out the traditional grace of the attire.', te:'                                తెలుగులో పడకమ్మ అంటే సజీవంగా వచ్చే తల్లి దేవత అని అర్థం. పాదకమ్మ ఒక అందమైన పూల పొర, వీటిలో ఎక్కువ భాగం ఆలయ గోపురం ఆకారంలో ఏడు పొరలలో అమర్చబడి, ఔషధ లక్షణాలతో వివిధ ప్రత్యేకమైన కాలానుగుణ పువ్వులతో రూపొందించబడింది. సాధారణంగా అన్నదమ్ములే తమ తల్లికి, అక్కచెల్లెళ్లకు పూలు తెచ్చి బతుకమ్మకు ఏర్పాట్లు చేస్తుంటారు. చారిత్రాత్మకంగా పడకమ్మ అంటే జీవన పండుగ అని అర్థం. దక్కన్ ప్రాంతంలో ఇది స్త్రీత్వం.', ta:'                தெலுங்கில் பதுகம்மா என்றால் உயிரோடு வரும் தாய் தெய்வம் என்று பொருள். பதுகம்மா ஒரு அழகான மலர் அடுக்கு, அவற்றில் பெரும்பாலானவை மருத்துவ குணங்கள் கொண்ட பல்வேறு தனித்துவமான பருவகால மலர்களால், கோயில் கோபுர வடிவத்தில் ஏழு அடுக்குகளில் அமைக்கப்பட்டுள்ளன. பொதுவாக சகோதரர்கள் தான் தங்கள் தாய் மற்றும் சகோதரிகளுக்கு பூக்களை கொண்டு வந்து பதுகம்மாவை ஏற்பாடு செய்வார்கள். வரலாற்று ரீதியாக, பதுகம்மா என்றால் வாழ்க்கையின் திருவிழா என்று பொருள். இது டெக்கான் பிராந்தியத்தில் பெண்மையின் கொண்டாட்டத்தையும் குறிக்கிறது, இதன் போது தெலுங்கானாவின் பெண்கள் '},
+        images: [
+            'bathukamma1.webp',
+            'https://example.com/holi_image2.jpg'
+        ],icon:'bathukamma2.webp',
+        videos: [
+            'V6 Bathukamma Song 2015 __ V6 Exclusive Songs.mp4',
+            'https://www.youtube.com/watch?v=video_id_4'
+        ]
+    },
+    {
+        id:'festival3', title:'Bonalu',
+        position: { lat: 17.43501, lng: 78.49907 }, // Mathura, India
+        descriptions:{en:'the Bonalu festival is celebrated by women as a form of thanksgiving to the Goddess Mahakali after the fulfillment of their wishes or vows. On this day women prepare a Brass pot filled with cooked rice with Milk and Jaggery, and the pot is prepared with Neem leaves, Vermillion, and turmeric.The complete preparation is in a brass pot called “Bonam”, women carry this Bonam on their heads with offering bangles and saree to the Goddess Mahakali in various forms such as pochamma, Mysamma, Dokkalamma, Yellamma, Poleramma, Pedamma, Maremma, Ankalamma, and Nookalamma.',te:'ది డిజైర్ ఎ వాస్ యొక్క పూర్తి చిత్రం తరువాత కాడెజ్ మహాకాళికి కృతజ్ఞతగా మహిళలు బోనాల పండుగను జరుపుకుంటారు. పాలు మరియు జాక్ తో వండిన రైజ్ తో బ్రాస్ కుండ క్షేత్రాన్ని ఈ రోజు మహిళ సంక్షిప్తం చేస్తుంది, మరియు కుండ వేప ఆకులు, కుంకుమ మరియు టెర్మారిక్ తో ప్రీబర్ట్. పూర్తి తయారీ బ్రాస్ పాడ్ కాల్ "బోనం"లో ఉంటుంది, ఉమెన్ క్యారీ ఈ బోనం ఆన్ ది హీట్స్ పై బ్యాంకులను సమర్పించడం మరియు క్యాడెజ్ మహాకాళికి వేరీ యొక్క రూపాల్లో సారీ ఇవ్వడం.',ta:'போனாலு திருவிழா பெண்களால் தங்கள் விருப்பங்கள் அல்லது சபதங்கள் நிறைவேறிய பின்னர் மகாகாளி தேவிக்கு நன்றி செலுத்தும் ஒரு வடிவமாக கொண்டாடப்படுகிறது. இந்த நாளில் பெண்கள் பால் மற்றும் வெல்லத்துடன் சமைத்த அரிசி நிரப்பப்பட்ட பித்தளை பானையை தயாரிக்கிறார்கள், மேலும் பானை வேப்பிலை, குங்குமம் மற்றும் மஞ்சள் ஆகியவற்றைக் கொண்டு தயாரிக்கப்படுகிறது. முழு தயாரிப்பும் "போனம்" என்று அழைக்கப்படும் ஒரு பித்தளை பானையில், பெண்கள் இந்த போனத்தை தலையில் சுமந்து, மகாகாளி தேவிக்கு வளையல்கள் மற்றும் சேலையை பல்வேறு வடிவங்களில் சமர்ப்பிப்பார்கள்.'}, images: ['']
+    },
+    {
+        id:'festival4', title:'Dussehra',
+        position: { lat: 17.43501, lng: 78.49907 }, // Mathura, India
+        descriptions:{},images:[''],videos:['']
+    },
+    {
+        id:'festival5', title:'Ramzan',
+        position: { lat: 17.43501, lng: 78.49907 }, // Mathura, India
+        descriptions:{},images:[''],videos:['']
+    },
+    {
+        id:'festival5', title:'Ramzan',
+        position: { lat: 17.43501, lng: 78.49907 }, // Mathura, India
+        descriptions:{},images:[''],videos:['']
+    },
+    {
+        id:'festival6', title:'R2amzan',
+        position: { lat: 17.43501, lng: 78.49907 }, // Mathura, India
+        descriptions:{},images:[''],videos:['']
+    }
+    // Add details for more festivals
+    // ...
+];
+let jatharasmarkers = [
+{
+id: 'jathara1',
+title: 'Muharram (Peerla Panduga)',
+position: { lat: 17.43501, lng: 78.49907 }, 
+        descriptions:{ en:'' }
+        }
+
+]
+let templemarkers = markers.filter(marker => marker.type === 'temple');
+        let festivalMarkers = markers.filter(marker => marker.type === 'festival');
+        
+        
+        let currentTempleMarkers = [];
+        let currentFestivalMarker = null;
+
+        
+
+
+       let currentSpeech = null;
+    let currentMarker = null;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 17.2142, lng: 78.2829}, // Update with your desired center coordinates
+                zoom: 7
+            });
+
+            document.getElementById('templeButton').addEventListener('click', function () {
+                displayTempleMarkers('temple');
+                hideMarkers(currentFestivalMarker);  
+                hideFestivalContent(); 
+
+            });
+            document.getElementById('festivalsButton').addEventListener('click', function () {
+                displayFestivalButtons();
+                hideTempleMarkers();
+                
+                // hideTempleContent();
+                // hideTempleMarkers();
+                // hideMarkers(currentTempleMarkers);
+                // hideTempleContent()
+                // hideMarkers(markers);
+            });
+
+        }
+        function displayFestivalMarkers(markers) {
+            // hideTempleMarkers();// Hide temple markers when displaying festival markers
+
+    festivalMarkers.forEach(festivalMarker => {
+        festivalMarker.setMap(map); // Show the festival markers
+    });
+            // hideTempleContent();
+            //     hideTempleMarkers();
+            hideMarkers(currentFestivalMarker);
+            festivalmarkers.forEach(festivalmarker => {
+                
+                const festivalmarkerIcon = {
+                    url: festival.icon,
+                    scaledSize: new google.maps.Size(40, 40)
+                };
+                const markerPosition = new google.maps.Marker({
+                    position: festival.position,
+                    map: map,
+                    title: festival.title,
+                    icon: festivalmarkerIcon
+                });
+                marker.isVisible = true;
+                if (marker.type === 'temple') {
+                    currentTempleMarkers.push(markerPosition);
+                } else {
+                    currentFestivalMarker = markerPosition;
+                }
+
+                festivalmarkerPosition.addListener('click', function () {
+                    speakText(festivalmarker.descriptions);
+                    displayMarkerDetails(festivalmarker);
+                });
+            });
+        }
+
+        function displayfestivalmarkerDetails(festivalmarker) {
+            const selectedLanguage = document.getElementById('languageSelect').value;
+            const modal = document.getElementById('myModal');
+            const modalContent = document.getElementById('modalContent');
+            modal.style.display = 'block';
+            modalContent.innerHTML = '';
+
+            marker.images.forEach(image => {
+                const imgElement = document.createElement('img');
+                imgElement.src = image;
+                modalContent.appendChild(imgElement);
+            });
+            
+
+            marker.videos.forEach(video => {
+                const videoElement = document.createElement('video');
+                videoElement.src = video;
+                videoElement.controls = true;
+                videoElement.addEventListener('click', function () {
+                    if (currentSpeech) {
+                        window.speechSynthesis.cancel();
+                    }
+                });
+
+                modalContent.appendChild(videoElement);
+            });
+
+            speakText(festivalmarker.descriptions[selectedLanguage]);
+        }
+        function displayFestivalButtons() {
+            
+            
+            const festivalsContainer = document.getElementById('festivalsContainer');
+            festivalsContainer.innerHTML = '';
+
+            festivalmarkers.forEach(festival => {
+                const button = document.createElement('button');
+                button.textContent = festival.title;
+                button.addEventListener('click', function () {
+                    hideMarkers(currentTempleMarkers);          map.setCenter(festival.position);
+                    map.setZoom(8); // Adjust the zoom level as needed
+                    
+                    map.panTo(festival.position);
+                    speakText(festival.descriptions);
+                    displayMarkerDetails(festival);
+    });
+
+                const lineBreak = document.createElement('br');
+                festivalsContainer.appendChild(button);
+                festivalsContainer.appendChild(lineBreak);
+            });
+
+            festivalsContainer.style.display = 'block';
+        }
+
+
+         function displayTempleMarkers() {
+            markers.forEach(marker => {
+                const  markerIcon= {
+                    url: marker.icon, 
+                    scaledSize: new google.maps.Size(40, 40)
+                 };
+            var markerPosition = new google.maps.Marker({
+                    position: marker.position,
+                    map: map,
+                    title: marker.title,
+                    icon: markerIcon,
+                    
+                });
+               
+            function displayMarkers(type) {
+        markers.forEach(marker => {
+            marker.marker.setVisible(marker.type === type);
+        });
+    }
+    marker.isVisible = true;
+                if (marker.type === 'temple') {
+                    currentTempleMarkers.push(markerPosition);
+                } else {
+                    currentFestivalMarker = markerPosition;
+                }
+                markerPosition.addListener('click',
+                    function () {
+                        speakText(marker.descriptions);
+
+                        displayMarkerDetails(marker);
+
+                    });
+                 });
+                }
+                 function displayMarkerDetails(marker) {
+            const selectedLanguage = document.getElementById('languageSelect').value;
+            var modal = document.getElementById('myModal');
+            var modalContent = document.getElementById('modalContent');
+            modal.style.display = 'block';
+            modalContent.innerHTML = ''
+            marker.images.forEach(image => {
+                const imgElement = document.createElement('img');
+                imgElement.src = image;
+                
+                modalContent.appendChild(imgElement);
+                });
+            marker.videos.forEach(video => {
+                const videoElement = document.createElement('video');
+                videoElement.src = video;
+                videoElement.controls = true;
+                videoElement.addEventListener('click', function () {
+                    // Stop text-to-speech when video is clicked
+                    if (currentSpeech) {
+                        window.speechSynthesis.cancel();
+                    }
+                });
+
+                modalContent.appendChild(videoElement);
+            });
+            console.log('Displaying details for marker:', marker);
+            if (currentSpeech) {
+                window.speechSynthesis.cancel();
+            } 
+               speakText(marker.descriptions[selectedLanguage]);
+        }
+        function hideMarkers(markers) {
+            if (markers && markers.length > 0) {
+                markers.forEach(marker => {
+                    marker.setMap(null);
+                });
+            }
+        }
+        function hideFestivalButtons() {
+            document.getElementById('festival').style.display = 'none';
+            
+            displayTempleMarkers('temple');
+            notdisplayFestivalMarkrs();
+
+}
+function notdisplayFestivalMarkrs(){
+    festivalmarkers.forEach(festivalmarker => {
+        festivalmarker.setVisible(false);
+    });
+    // displayfestivalmarkerDetails('none')  
+}
+function hideTempleMarkers() {
+    // Assuming temple content is inside an element with ID 'templeContent'
+    markers.forEach(marker => {
+        marker.setMap(null); // Hides the temple markers
+    });
+    document.getElementById('temple').style.display = 'none';
+    // hideTempleMarkers();
+    
+}
+// function hideTempleMarkers() {
+//     currentTempleMarkers.forEach(marker => {
+//         marker.setMap(null); // Hide temple markers
+//     });
+// }
+    
+        function speakText(text) {
+            const speech = new SpeechSynthesisUtterance();
+            speech.text = text;
+            currentSpeech = speech;
+            speech.lang = document.getElementById('languageSelect').value;
+            window.speechSynthesis.speak(speech);
+        }
+        function hideFestivalContent() {
+    // Hide festival content here
+    document.getElementById('festivalsContainer').style.display = 'none';
+    
+}
+// function hideTempleContent() {
+//     // Hide festival content here
+//     document.getElementById('templeButton').style.display = 'none';
+    
+// }
+
+
+
+        
+    </script>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1UCI4_a26hyJ38j6eKkkqZmWKBtX_Sks&callback=initMap"
+        async defer></script>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 5px;
+            margin-top: 25px;
+            left: 0;
+            top: 0;
+            width: 35%;
+            height: 100%;
+            overflow: auto;
+             background-color: rgba(107, 206, 229, 0.9); 
+        }
+        #festivalsContainer {
+            display: none;
+            position: absolute;
+            top: 90px;
+            left: 20px;
+            background-color: #ffffff5f;
+            align-items: left;
+
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        /* Style for the table */
+        #festivalsTable {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #festivalsTable th,
+        #festivalsTable td {
+            border: 1px solid darkolivegreen;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #festivalsTable th {
+            background-color: darkcyan;
+        }
+
+        #festivalsTable tr:hover {
+            background-color: darkgrey;
+        }
+        #festivalsContainer button {
+            display: block;
+            width: 100%;
+            padding: 8px 8px;
+            margin-bottom: 2px;
+            border: none;
+            background-color: darkseagreen;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #festivalsContainer button:hover {
+            background-color:MediumSeaGreen;
+        }
+
+        .modal-content {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: right;
+            align-items: safe;
+        }
+
+        .modal-content img,
+        .modal-content video {
+            width: 200px;
+            height: auto;
+            margin: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <select id="languageSelect">
+        <option value="en">English</option>
+        
+        <option value="te">Telugu</option>
+        <option value="ta">Tamil</option>
+        <!-- Add more language options as needed -->
+    </select>
+    <button id="templeButton"  onclick="displayMarkerDetails(marker)">Telangana Temples</button>
+    <button id="festivalsButton">Festivals</button>
+    <button id="JatharasButton "  onclick="displayMarkerDetails(marker)">Telangana Jatharas</button>
+    
+    <button id="heritageButton" onclick="heritageMarkerDetails(marker)">Telangana Heritage</button>
+    <div id="festivalsContainer" >
+        <table id="festivalsTable">
+            <thead>
+                <tr>
+                    <th>Festivals</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Sample festival buttons -->
+                <tr>
+                    <td><button onclick="displayfestivalmarkerDetails('Festival 1')">Moharram (Peerla paduga)</button></td>
+                </tr>
+                <tr>
+                    <td><button onclick="displayfestivalmarkerDetails('Festival 2')">Festival 2</button></td>
+                </tr>
+               
+            </tbody>
+        </table>
+    </div> 
+    </div>
+</body> 
+
+    <div id="map"></div>
+    <div id="myModal" class="modal">
+        <div class="modal-content" id="modalContent">
+            <audio controls id="audioPlayer" style="width: 100%;"></audio>
+       
+
+        </div>
+    </div>
+    
+        <script src="chat2.js"></script>
+</body>
+
+</html>
